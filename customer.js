@@ -1712,7 +1712,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Use host for proper HTTP link
                 // const host = window.location.origin; // e.g., http://127.0.0.1:5500
                 // const approveURL = `${host}/approve.html?customer=${customerIndex}&date=${cells[0].textContent}&month=${monthSelect.value}&year=${yearSelect.value}&row=${index}`;
-                const host = "https://yourproject.netlify.app"; // your actual Netlify URL
+                const host = "https://tiffintrackerapp.netlify.app"; // your actual Netlify URL
 const approveURL = `${host}/approve.html?customer=${customerIndex}&date=${cells[0].textContent}&month=${monthSelect.value}&year=${yearSelect.value}&row=${index}`;
 
                 const msg = [
