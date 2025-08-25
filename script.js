@@ -1,78 +1,70 @@
-document.getElementById("customerSelect").addEventListener("change", generateTable);
-document.getElementById("monthPicker").addEventListener("change", generateTable);
-document.getElementById("searchCustomer").addEventListener("input", searchCustomer);
+// document.addEventListener("DOMContentLoaded", () => {
+//     const form = document.getElementById("customerForm");
+//     const customerList = document.getElementById("customerList");
 
-function generateTable() {
-  let customer = document.getElementById("customerSelect").value;
-  let monthYear = document.getElementById("monthPicker").value;
+//     function loadCustomers() {
+//         const customers = JSON.parse(localStorage.getItem("customers")) || [];
+//         customerList.innerHTML = "";
+//         customers.forEach(cust => {
+//             const li = document.createElement("li");
+//             li.textContent = `${cust.name} (Full: ₹${cust.fullPrice}, Half: ₹${cust.halfPrice})`;
+//             customerList.appendChild(li);
+//         });
+//     }
 
-  if (!customer || !monthYear) {
-    document.getElementById("tableContainer").innerHTML = "";
-    return;
-  }
+//     form.addEventListener("submit", (e) => {
+//         e.preventDefault();
+//         const name = document.getElementById("customerName").value;
+//         const fullPrice = document.getElementById("fullPrice").value;
+//         const halfPrice = document.getElementById("halfPrice").value;
 
-  let [year, month] = monthYear.split("-");
-  let daysInMonth = new Date(year, month, 0).getDate();
+//         let customers = JSON.parse(localStorage.getItem("customers")) || [];
+//         customers.push({ name, fullPrice, halfPrice });
+//         localStorage.setItem("customers", JSON.stringify(customers));
 
-  let table = `
-    <h2>${customer} - ${monthYear}</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Day Full</th>
-          <th>Day Half</th>
-          <th>Night Full</th>
-          <th>Night Half</th>
-          <th>Total Quantity</th>
-          <th>Total Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-  `;
+//         form.reset();
+//         loadCustomers();
+//     });
 
-  for (let d = 1; d <= daysInMonth; d++) {
-    table += `
-      <tr>
-        <td>${d}/${month}/${year}</td>
-        <td><input type="number" value="0" onchange="updateRow(this)"></td>
-        <td><input type="number" value="0" onchange="updateRow(this)"></td>
-        <td><input type="number" value="0" onchange="updateRow(this)"></td>
-        <td><input type="number" value="0" onchange="updateRow(this)"></td>
-        <td class="qty">0</td>
-        <td class="amount">0</td>
-      </tr>
-    `;
-  }
+//     loadCustomers();
+// });
 
-  table += `</tbody></table>`;
-  document.getElementById("tableContainer").innerHTML = table;
-}
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("customerForm");
+    const customerList = document.getElementById("customerList");
 
-function updateRow(input) {
-  let row = input.parentElement.parentElement;
-  let dayFull = parseInt(row.children[1].children[0].value) || 0;
-  let dayHalf = parseInt(row.children[2].children[0].value) || 0;
-  let nightFull = parseInt(row.children[3].children[0].value) || 0;
-  let nightHalf = parseInt(row.children[4].children[0].value) || 0;
-
-  let totalQty = dayFull + dayHalf + nightFull + nightHalf;
-  let totalAmount = (dayFull * 100) + (dayHalf * 60) + (nightFull * 100) + (nightHalf * 60);
-
-  row.querySelector(".qty").innerText = totalQty;
-  row.querySelector(".amount").innerText = totalAmount;
-}
-
-function searchCustomer() {
-  let searchValue = document.getElementById("searchCustomer").value.toLowerCase();
-  let options = document.querySelectorAll("#customerSelect option");
-
-  options.forEach(opt => {
-    if (opt.value.toLowerCase().includes(searchValue) || opt.text.toLowerCase().includes(searchValue)) {
-      opt.style.display = "block";
-    } else if (opt.value !== "") {
-      opt.style.display = "none";
+    function loadCustomers() {
+        const customers = JSON.parse(localStorage.getItem("customers")) || [];
+        customerList.innerHTML = "";
+        customers.forEach(cust => {
+            const li = document.createElement("li");
+            li.textContent = `${cust.name} (Full: ₹${cust.fullPrice}, Half: ₹${cust.halfPrice}, Mobile: ${cust.mobile || 'N/A'})`;
+            customerList.appendChild(li);
+        });
     }
-  });
-}
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("customerName").value;
+        const fullPrice = document.getElementById("fullPrice").value;
+        const halfPrice = document.getElementById("halfPrice").value;
+        const mobile = document.getElementById("customerMobile").value; // added mobile number
+
+        let customers = JSON.parse(localStorage.getItem("customers")) || [];
+        customers.push({ 
+            id: Date.now(),         // unique ID for each customer
+            name, 
+            fullPrice, 
+            halfPrice, 
+            mobile,                 // save mobile number
+            deviceToken: ""         // for push notifications (empty initially)
+        });
+        localStorage.setItem("customers", JSON.stringify(customers));
+
+        form.reset();
+        loadCustomers();
+    });
+
+    loadCustomers();
+});
 

@@ -3,28 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiffin Tracker</title>
+  <title>Tiffin Tracker - Admin</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>Tiffin Tracker</h1>
+    <h1>Admin Panel</h1>
 
-    <!-- Search Customer -->
-    <input type="text" id="searchCustomer" placeholder="Search Customer...">
+    <!-- Add Customer Form -->
+    <form id="customerForm">
+      <input type="text" id="customerName" placeholder="Customer Name" required>
+      <input type="number" id="fullPrice" placeholder="Full Price" required>
+      <input type="number" id="halfPrice" placeholder="Half Price" required>
+      <input type="text" id="customerMobile" placeholder="Enter mobile number">
 
-    <!-- Customer Selection -->
-    <select id="customerSelect">
-      <option value="">-- Select Customer --</option>
-      <option value="customer1">Customer 1</option>
-      <option value="customer2">Customer 2</option>
-    </select>
+      <button type="submit">Add Customer</button>
+    </form>
 
-    <!-- Month-Year Picker -->
-    <input type="month" id="monthPicker">
+    <!-- Customers List -->
+    <h2>Customer List</h2>
+    <ul id="customerList"></ul>
 
-    <!-- Table -->
-    <div id="tableContainer"></div>
+    <br><br>
+<a href="customer.html">
+  <button>Go to Customer Page</button>
+</a>
+
   </div>
 
   <script src="script.js"></script>
