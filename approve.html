@@ -1,0 +1,177 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiffin Approved</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #fff8e1;
+      padding: 50px;
+    }
+    .message-box {
+      display: inline-block;
+      padding: 30px;
+      border-radius: 15px;
+      background: #ffecb3;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .message-box h1 {
+      color: #ff9800;
+    }
+    .message-box p {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #6d4c41;
+    }
+  </style>
+</head>
+<body>
+  <div class="message-box">
+    <h1>🎉 Tiffin Approved!</h1>
+    <p id="confirmationText"></p>
+  </div>
+
+  <script>
+    // Get parameters from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const customerIndex = urlParams.get("cust");
+    const date = urlParams.get("date");
+
+    if(customerIndex !== null && date) {
+      // Load customer name
+      const customers = JSON.parse(localStorage.getItem("customers")) || [];
+      const customer = customers[customerIndex];
+
+      // Show confirmation message
+      document.getElementById("confirmationText").textContent =
+        `Thanks ${customer.name}! Your tiffin order for ${date} has been approved. 🍴`;
+
+      // Update table status in localStorage
+      const tables = JSON.parse(localStorage.getItem("tables")) || {};
+      const customerTables = tables[customerIndex];
+      if(customerTables) {
+        for(const key in customerTables) {
+          const rows = customerTables[key];
+          rows.forEach(row => {
+            if(row.date === date) row.status = "approved";
+          });
+        }
+        localStorage.setItem("tables", JSON.stringify(tables));
+      }
+    } else {
+      document.getElementById("confirmationText").textContent = "Invalid link or order!";
+    }
+  </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Approve Your Tiffin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff8f0;
+            padding: 40px;
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            display: inline-block;
+            background: #ffe4b5;
+            padding: 25px 35px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .tiffin-list {
+            margin-bottom: 20px;
+        }
+        .tiffin-list p {
+            margin: 6px 0;
+        }
+        .doneBtn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .doneBtn:hover {
+            background: #45a049;
+        }
+        .confirmation {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Your Tiffin Order</h1>
+    <div class="tiffin-list" id="tiffinList">
+        <!-- Tiffin details will appear here -->
+    </div>
+    <button class="doneBtn" id="doneBtn">Done</button>
+    <div class="confirmation" id="confirmation"></div>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const customerIndex = urlParams.get('customer');
+    const rowIndex = parseInt(urlParams.get('row'));
+    const month = urlParams.get('month');
+    const year = urlParams.get('year');
+
+    const savedTables = JSON.parse(localStorage.getItem("tables")) || {};
+    const customers = JSON.parse(localStorage.getItem("customers")) || [];
+
+    const monthYearKey = `${month}-${year}`;
+    const tiffinListDiv = document.getElementById("tiffinList");
+    const doneBtn = document.getElementById("doneBtn");
+    const confirmationDiv = document.getElementById("confirmation");
+
+    if(customerIndex !== null && !isNaN(rowIndex) && customers[customerIndex] && savedTables[customerIndex] && savedTables[customerIndex][monthYearKey]) {
+        const rowData = savedTables[customerIndex][monthYearKey][rowIndex-1]; // rowIndex-1 because first row in table is header
+        tiffinListDiv.innerHTML = `
+            <p><strong>Date:</strong> ${rowData.date}</p>
+            <p>Day Full: ${rowData.dayFull}</p>
+            <p>Day Half: ${rowData.dayHalf}</p>
+            <p>Night Full: ${rowData.nightFull}</p>
+            <p>Night Half: ${rowData.nightHalf}</p>
+        `;
+
+        // Disable button if already approved
+        if(rowData.status === "approved") {
+            doneBtn.disabled = true;
+            confirmationDiv.textContent = "✅ You have already approved this tiffin order!";
+        }
+    } else {
+        tiffinListDiv.innerHTML = "<p>Invalid or expired tiffin link.</p>";
+        doneBtn.style.display = "none";
+    }
+
+    doneBtn.addEventListener("click", () => {
+        savedTables[customerIndex][monthYearKey][rowIndex-1].status = "approved";
+        localStorage.setItem("tables", JSON.stringify(savedTables));
+        confirmationDiv.textContent = "🎉 Thank you! Your tiffin order has been approved.";
+        doneBtn.disabled = true;
+    });
+</script>
+
+</body>
+</html>

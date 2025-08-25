@@ -1,0 +1,89 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Tiffin Records</title>
+  <link rel="stylesheet" href="customer.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Customer Tiffin Records</h1>
+
+   
+    <label for="customerSelect">Select Customer:</label>
+    <input type="text" id="customerSearch" placeholder="Search customer...">
+    <select id="customerSelect"></select>
+
+    
+    <div id="priceBox" class="price-box" style="display:none;">
+      <p><strong>Full Price:</strong> ₹<span id="fullPrice">0</span></p>
+      <p><strong>Half Price:</strong> ₹<span id="halfPrice">0</span></p>
+    </div>
+
+    
+    <label for="monthSelect">Month:</label>
+    <select id="monthSelect"></select>
+
+    <label for="yearSelect">Year:</label>
+    <select id="yearSelect"></select>
+
+    <button id="generateTable">Generate Table</button>
+
+    
+    <div id="tableContainer"></div>
+    <br><br>
+     <a href="index.html">
+       <button>Back to Admin Page</button>
+     </a>
+  </div>
+
+  <script src="customer.js"></script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Tiffin Records</title>
+  <link rel="stylesheet" href="customer.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Customer Tiffin Records</h1>
+
+    <!-- Customer Search/Select -->
+    <label for="customerSelect">Select Customer:</label>
+    <input type="text" id="customerSearch" placeholder="Search customer...">
+    <select id="customerSelect"></select>
+
+    <!-- Price Info -->
+    <div id="priceBox" class="price-box" style="display:none;">
+      <p><strong>Full Price:</strong> ₹<span id="fullPrice">0</span></p>
+      <p><strong>Half Price:</strong> ₹<span id="halfPrice">0</span></p>
+      <p><strong>Mobile Number:</strong> <span id="mobileNumber">0</span></p> <!-- added mobile -->
+    </div>
+
+    <!-- Month & Year Selection -->
+    <label for="monthSelect">Month:</label>
+    <select id="monthSelect"></select>
+
+    <label for="yearSelect">Year:</label>
+    <select id="yearSelect"></select>
+
+    <button id="generateTable">Generate Table</button>
+
+    <!-- Table -->
+    <div id="tableContainer"></div>
+    <br><br>
+     <a href="index.html">
+       <button>Back to Admin Page</button>
+     </a>
+  </div>
+
+  <script src="customer.js"></script>
+</body>
+</html>
