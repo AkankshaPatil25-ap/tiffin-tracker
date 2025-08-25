@@ -1,5 +1,46 @@
 body {
   font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
   text-align: center;
-  margin-top: 50px;
+}
+
+input, select {
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 300px;
+  display: block;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background: #f2f2f2;
 }

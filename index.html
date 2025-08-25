@@ -3,11 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiffin App</title>
+  <title>Tiffin Tracker</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, Tiffin App is live 🚀</h1>
+  <div class="container">
+    <h1>Tiffin Tracker</h1>
+
+    <!-- Search Customer -->
+    <input type="text" id="searchCustomer" placeholder="Search Customer...">
+
+    <!-- Customer Selection -->
+    <select id="customerSelect">
+      <option value="">-- Select Customer --</option>
+      <option value="customer1">Customer 1</option>
+      <option value="customer2">Customer 2</option>
+    </select>
+
+    <!-- Month-Year Picker -->
+    <input type="month" id="monthPicker">
+
+    <!-- Table -->
+    <div id="tableContainer"></div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
